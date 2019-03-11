@@ -1,4 +1,4 @@
-package com.example.myshh.camerapreviewtest;
+package com.example.myshh.floatingcamera;
 
 import org.junit.Test;
 

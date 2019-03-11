@@ -12,6 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:onClick="launchButtonClick"
         android:text="Launch floating camera" />
+
+    <Button
+        android:id="@+id/btnPermissionsInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnLaunchCamera"
+        android:onClick="infoButtonClick"
+        android:text="Permissions information" />
 
 </RelativeLayout>

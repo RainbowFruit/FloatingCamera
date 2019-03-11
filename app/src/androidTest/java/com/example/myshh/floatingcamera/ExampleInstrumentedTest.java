@@ -1,4 +1,4 @@
-package com.example.myshh.camerapreviewtest;
+package com.example.myshh.floatingcamera;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
