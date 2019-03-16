@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
@@ -184,14 +185,29 @@ public class FloatingViewService extends Service {
 
     private void prepareCameraView(boolean setBackCamera){
         mCamera = getCameraInstance(setBackCamera);
-        Camera.Parameters cameraParameters = mCamera.getParameters();
-        cameraParameters.setPictureSize(cameraParameters.getSupportedPictureSizes().get(0).width,
-                cameraParameters.getSupportedPictureSizes().get(0).height);
-        mCamera.setParameters(cameraParameters);
+        setCameraParameters(mCamera);
         CameraPreview mPreview = new CameraPreview(this, mCamera);
         FrameLayout preview = floatingView.findViewById(R.id.camera_preview);
         preview.removeAllViews();
         preview.addView(mPreview);
+    }
+
+    private void setCameraParameters(Camera camera) {
+        Camera.Parameters cameraParameters = camera.getParameters();
+        ArrayList<Integer> sizes = new ArrayList<>();
+        for (int i = 0; i < cameraParameters.getSupportedPictureSizes().size(); i++) {
+            sizes.add(cameraParameters.getSupportedPictureSizes().get(i).width
+            * cameraParameters.getSupportedPictureSizes().get(i).height);
+        }
+        int max = 0;
+        for (int i = 0; i < sizes.size(); i++) {
+            if (sizes.get(i) > sizes.get(i)) {
+                max = i;
+            }
+        }
+        cameraParameters.setPictureSize(cameraParameters.getSupportedPictureSizes().get(max).width,
+                cameraParameters.getSupportedPictureSizes().get(max).height);
+        camera.setParameters(cameraParameters);
     }
 
     private void resizeLayout(int width, int height) {
